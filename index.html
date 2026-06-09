@@ -661,19 +661,51 @@
   body.present-mode .hero h1{font-size:clamp(48px,6.4vw,84px)}
   /* Reduce stage card height pressure in present mode */
   body.present-mode .stage-flow{align-items:stretch}
-  /* HPE in present mode: hide overview cards, keep radial hub as centerpiece, compact status bar */
-  body.present-mode #hpe .hpe-overview{display:none}
-  body.present-mode #hpe .hpe-pipeline-head{margin-top:0;margin-bottom:14px}
-  body.present-mode #hpe .hpe-status-bar{padding:14px 22px;margin-bottom:14px}
-  body.present-mode #hpe .hpe-status-bar .hpe-stat-value{font-size:18px}
-  body.present-mode #hpe .hpe-hub-canvas{max-width:720px}
-  body.present-mode #hpe .hpe-hub{padding:20px}
-  body.present-mode #hpe .hpe-hub-center{width:160px;height:160px}
-  /* HPE has modal+backdrop as the actual last children (position:fixed → out of flow).
-     Force margin-bottom:auto onto the real last visible item (.hpe-hub) so flex centering works. */
+  /* HPE in present mode: FULL VIEWPORT — content spreads to fill 100vh, no empty space below */
+  body.present-mode #hpe{
+    justify-content:space-between;align-items:stretch;
+    padding:20px 40px;max-width:none !important;
+  }
+  body.present-mode #hpe > :first-child,
+  body.present-mode #hpe > :last-child{margin-top:0 !important;margin-bottom:0 !important}
   body.present-mode #hpe .hpe-modal,
   body.present-mode #hpe .hpe-modal-backdrop{margin:0 !important}
-  body.present-mode #hpe .hpe-hub{margin-bottom:auto !important}
+  /* Tighter title block */
+  body.present-mode #hpe .section-head{margin-bottom:14px;flex-shrink:0}
+  body.present-mode #hpe .section-head h2{font-size:clamp(24px,2.8vw,36px);margin-bottom:4px}
+  body.present-mode #hpe .section-head p{font-size:12px;max-width:560px}
+  body.present-mode #hpe .section-eyebrow{font-size:10px;padding:4px 11px;margin-bottom:8px}
+  /* Overview head compact */
+  body.present-mode #hpe .hpe-overview{margin-bottom:12px;flex-shrink:0}
+  body.present-mode #hpe .hpe-overview-head{margin-bottom:10px;gap:10px}
+  body.present-mode #hpe .hpe-overview-tag{font-size:9.5px;padding:3px 9px;letter-spacing:1.4px}
+  body.present-mode #hpe .hpe-overview-title{font-size:13px}
+  /* 7 cards — keep 4-col grid, compact padding */
+  body.present-mode #hpe .hpe-grid{gap:10px}
+  body.present-mode #hpe .hpe-card{padding:12px 13px;border-radius:13px}
+  body.present-mode #hpe .hpe-card-num{width:30px;height:30px;font-size:11.5px;margin-bottom:8px;border-radius:8px}
+  body.present-mode #hpe .hpe-card h4{font-size:12.5px;margin-bottom:5px;letter-spacing:-.2px;line-height:1.2}
+  body.present-mode #hpe .hpe-card p{font-size:10.5px;line-height:1.45}
+  body.present-mode #hpe .hpe-card .hpe-callout{font-size:10px;padding:3px 9px;margin-bottom:6px}
+  /* Pipeline head */
+  body.present-mode #hpe .hpe-pipeline-head{margin:10px 0 10px;gap:10px;flex-shrink:0}
+  /* Hub takes ALL remaining vertical space */
+  body.present-mode #hpe .hpe-hub{
+    padding:18px;margin-bottom:0;border-radius:20px;
+    flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;align-items:center;
+    min-height:0;
+  }
+  body.present-mode #hpe .hpe-hub-canvas{
+    max-width:none;width:auto;height:100%;max-height:100%;
+    aspect-ratio:8/5;margin:0 auto;
+  }
+  body.present-mode #hpe .hpe-hub-center{width:140px;height:140px;padding:12px}
+  body.present-mode #hpe .hpe-hub-center .eyebrow{font-size:9px;letter-spacing:1.4px}
+  body.present-mode #hpe .hpe-hub-center .title{font-size:12.5px;line-height:1.15}
+  body.present-mode #hpe .hpe-hub-center .meta{font-size:9px}
+  body.present-mode #hpe .hpe-hub-node .ring{width:44px;height:44px;font-size:11.5px}
+  body.present-mode #hpe .hpe-hub-node .label{font-size:9.5px;padding:3px 8px}
+  body.present-mode #hpe .hpe-hub-hint{margin-top:10px;font-size:10px;flex-shrink:0}
   .present-hud{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:91;display:none;align-items:center;gap:14px;padding:10px 18px;background:rgba(15,18,53,.92);color:#fff;border-radius:14px;backdrop-filter:blur(10px);box-shadow:var(--shadow-lg)}
   body.present-mode .present-hud{display:flex}
   .present-hud .dots{display:flex;gap:5px}
@@ -682,7 +714,7 @@
   .present-hud .count{font-size:11px;font-weight:800;letter-spacing:1.2px;color:rgba(255,255,255,.70)}
   .present-hud .exit{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.20);color:#fff;padding:5px 10px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer}
   .present-hint{position:fixed;bottom:24px;right:24px;z-index:91;display:none;font-size:11px;color:var(--ink-mute);background:#fff;border:1px solid var(--line);padding:8px 14px;border-radius:10px;box-shadow:var(--shadow)}
-  body.present-mode .present-hint{display:block}
+  body.present-mode .present-hint{display:none !important}
 
   /* ===== RESPONSIVE ===== */
   @media (max-width:1180px){
@@ -1318,6 +1350,565 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STORY EXPERIENCE ===== -->
+<section class="section" id="story-experience">
+  <div class="section-head">
+    <span class="section-eyebrow">Hyper-Personalized Content</span>
+    <h2>Story <span class="grad">Experience.</span></h2>
+    <p>Weekly drops, seasonal stories - every customer sees what's relevant the moment they open the app.</p>
+  </div>
+
+  <style>
+    /* Full-bleed: section spans entire viewport width like the hero */
+    section.section#story-experience{
+      width:100vw;max-width:none;
+      margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);
+      padding:80px 32px 100px;position:relative;overflow:hidden;
+      background:
+        radial-gradient(1100px 600px at 12% 18%, rgba(94,61,245,.10) 0%, transparent 55%),
+        radial-gradient(900px 500px at 88% 12%, rgba(255,111,184,.08) 0%, transparent 55%),
+        radial-gradient(1200px 700px at 50% 100%, rgba(60,99,255,.08) 0%, transparent 60%),
+        linear-gradient(180deg, #F1EEFC 0%, #F4F6FC 50%, #EEF1FA 100%);
+    }
+    #story-experience{max-width:none}
+    #story-experience .section-head{max-width:780px;margin:0 auto 36px}
+    #story-experience .se-canvas{max-width:1500px;margin:0 auto}
+    #story-experience .se-canvas{
+      background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:var(--shadow);
+      display:grid;grid-template-columns:1fr 1.3fr;gap:24px;align-items:stretch;
+    }
+    @media (max-width:1180px){#story-experience .se-canvas{grid-template-columns:1fr}}
+
+    /* Story stage with 3 phones — theme-aware backgrounds */
+    #story-experience .se-stage{
+      position:relative;
+      background:radial-gradient(120% 100% at 50% 30%, #1A2150 0%, #0B0F30 60%, #060926 100%);
+      border-radius:20px;padding:30px 18px 22px;overflow:hidden;
+      box-shadow:0 20px 50px rgba(15,18,53,.30),inset 0 0 0 1px rgba(255,255,255,.04);
+      transition:background .85s ease;
+    }
+    #story-experience .se-stage::before{
+      content:"";position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;
+      background:rgba(94,61,245,.30);filter:blur(50px);pointer-events:none;transition:background .85s ease;
+    }
+    #story-experience .se-stage::after{
+      content:"";position:absolute;bottom:-80px;left:-80px;width:280px;height:280px;border-radius:50%;
+      background:rgba(60,99,255,.20);filter:blur(50px);pointer-events:none;transition:background .85s ease;
+    }
+    /* Theme 0 — SEA Breeze · navy night (default) */
+    #story-experience .se-stage.theme-0{background:radial-gradient(120% 100% at 50% 30%, #1A2150 0%, #0B0F30 60%, #060926 100%)}
+    #story-experience .se-stage.theme-0::before{background:rgba(94,61,245,.30)}
+    #story-experience .se-stage.theme-0::after{background:rgba(60,99,255,.20)}
+    /* Theme 1 — ABB Home · soft pink morning */
+    #story-experience .se-stage.theme-1{background:radial-gradient(120% 100% at 50% 30%, #3D2A52 0%, #2E1B45 50%, #1A0F2C 100%)}
+    #story-experience .se-stage.theme-1::before{background:rgba(255,111,184,.30)}
+    #story-experience .se-stage.theme-1::after{background:rgba(255,157,110,.22)}
+    /* Theme 2 — Khinkali · cool winter steam */
+    #story-experience .se-stage.theme-2{background:radial-gradient(120% 100% at 50% 30%, #1E3A52 0%, #102338 60%, #060F1F 100%)}
+    #story-experience .se-stage.theme-2::before{background:rgba(34,211,238,.28)}
+    #story-experience .se-stage.theme-2::after{background:rgba(255,255,255,.10)}
+    /* Theme 3 — Keçmiş / Gələcək · introspective charcoal */
+    #story-experience .se-stage.theme-3{background:radial-gradient(120% 100% at 50% 30%, #2C2740 0%, #1A1726 60%, #0A0815 100%)}
+    #story-experience .se-stage.theme-3::before{background:rgba(245,200,87,.18)}
+    #story-experience .se-stage.theme-3::after{background:rgba(124,140,255,.16)}
+    /* Theme 4 — HiperYay · tropical sunset */
+    #story-experience .se-stage.theme-4{background:radial-gradient(120% 100% at 50% 30%, #2D4F66 0%, #1E3A52 40%, #0F1D2E 100%)}
+    #story-experience .se-stage.theme-4::before{background:rgba(255,165,80,.40)}
+    #story-experience .se-stage.theme-4::after{background:rgba(34,211,238,.28)}
+    /* Theme 5 — Cinema · weekend movie · deep red velvet */
+    #story-experience .se-stage.theme-5{background:radial-gradient(120% 100% at 50% 30%, #4A1820 0%, #2E0B12 60%, #15050A 100%)}
+    #story-experience .se-stage.theme-5::before{background:rgba(239,68,68,.30)}
+    #story-experience .se-stage.theme-5::after{background:rgba(245,200,87,.20)}
+
+    /* Floating decorative theme emojis */
+    #story-experience .se-deco{
+      position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden;
+    }
+    #story-experience .se-deco i{
+      position:absolute;font-size:28px;opacity:0;
+      transition:opacity 1.2s ease;
+      animation:seFloatDeco 8s ease-in-out infinite;
+      font-style:normal;
+    }
+    @keyframes seFloatDeco{
+      0%,100%{transform:translateY(0) rotate(-4deg)}
+      50%{transform:translateY(-12px) rotate(4deg)}
+    }
+    #story-experience .se-stage.theme-0 .se-deco i.t0,
+    #story-experience .se-stage.theme-1 .se-deco i.t1,
+    #story-experience .se-stage.theme-2 .se-deco i.t2,
+    #story-experience .se-stage.theme-3 .se-deco i.t3,
+    #story-experience .se-stage.theme-4 .se-deco i.t4,
+    #story-experience .se-stage.theme-5 .se-deco i.t5{opacity:.55}
+
+    /* Progress bars (3 segments at top of stage) + pause button */
+    #story-experience .se-progress-row{
+      position:relative;z-index:2;display:flex;align-items:center;justify-content:center;gap:14px;
+      margin:0 auto 18px;max-width:380px;
+    }
+    #story-experience .se-progress{display:flex;gap:6px;flex:1}
+    #story-experience .se-progress .seg{
+      flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.20);overflow:hidden;
+      position:relative;
+    }
+    #story-experience .se-progress .seg::after{
+      content:"";position:absolute;inset:0;width:0;background:#fff;border-radius:2px;
+      transition:width .3s linear;
+    }
+    #story-experience .se-progress .seg.done::after{width:100%}
+    #story-experience .se-progress .seg.active::after{width:0;animation:seFill 6s linear forwards}
+    #story-experience.paused .se-progress .seg.active::after{animation-play-state:paused}
+    @keyframes seFill{to{width:100%}}
+    #story-experience .se-pause-btn{
+      flex-shrink:0;width:30px;height:30px;border-radius:50%;
+      background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.25);color:#fff;
+      cursor:pointer;display:flex;align-items:center;justify-content:center;
+      backdrop-filter:blur(8px);transition:all .2s ease;
+    }
+    #story-experience .se-pause-btn:hover{background:rgba(255,255,255,.18);transform:scale(1.06)}
+    #story-experience .se-pause-btn svg{width:12px;height:12px;display:block}
+    #story-experience .se-pause-btn .play-icon{display:none}
+    #story-experience.paused .se-pause-btn{background:#fff;color:#0B0F30;border-color:transparent}
+    #story-experience.paused .se-pause-btn .pause-icon{display:none}
+    #story-experience.paused .se-pause-btn .play-icon{display:block}
+    /* Paused badge — hidden (pause button itself shows state) */
+    #story-experience .se-paused-badge{display:none}
+
+    /* Phones row: peek-active-peek */
+    #story-experience .se-phones{
+      position:relative;z-index:2;
+      display:flex;align-items:center;justify-content:center;gap:14px;
+      perspective:1200px;min-height:600px;
+    }
+    #story-experience .se-phone{
+      flex-shrink:0;background:transparent;border:none;padding:0;cursor:pointer;
+      transition:width .7s cubic-bezier(.22,.9,.3,1),
+                 opacity .55s ease,
+                 transform .7s cubic-bezier(.22,.9,.3,1),
+                 filter .55s ease,
+                 margin .7s cubic-bezier(.22,.9,.3,1);
+      transform-origin:center center;will-change:width,transform,opacity;
+    }
+    #story-experience .se-phone-frame{
+      width:100%;background:#0B0F1A;border-radius:36px;padding:8px;
+      box-shadow:0 24px 50px rgba(0,0,0,.45);position:relative;
+    }
+    #story-experience .se-phone-frame::before{
+      content:"";position:absolute;top:14px;left:50%;transform:translateX(-50%);
+      width:90px;height:22px;border-radius:99px;background:#0B0F1A;z-index:3;
+    }
+    #story-experience .se-screen{
+      background:#1a1d2e;border-radius:28px;overflow:hidden;
+      width:100%;aspect-ratio:9/19.5;
+      background-size:cover;background-position:center;
+      position:relative;
+      display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);
+      font-size:11px;font-weight:600;letter-spacing:.4px;
+    }
+    #story-experience .se-screen::before{content:attr(data-placeholder)}
+    #story-experience .se-screen.has-image::before{content:""}
+    /* Placeholder gradients per story */
+    #story-experience .se-phone[data-idx="0"] .se-screen{background-image:linear-gradient(180deg,#0a1633 0%,#1e3a8a 50%,#2563eb 100%)}
+    #story-experience .se-phone[data-idx="1"] .se-screen{background-image:linear-gradient(180deg,#f4f6fc 0%,#e0e7ff 100%);color:rgba(15,18,53,.35)}
+    #story-experience .se-phone[data-idx="2"] .se-screen{background-image:linear-gradient(180deg,#dbeafe 0%,#94a3b8 100%);color:rgba(15,18,53,.40)}
+    #story-experience .se-phone[data-idx="3"] .se-screen{background-image:linear-gradient(180deg,#1e293b 0%,#334155 60%,#64748b 100%)}
+    #story-experience .se-phone[data-idx="4"] .se-screen{background-image:linear-gradient(180deg,#0a1e3f 0%,#1e6091 40%,#FFA552 100%)}
+    #story-experience .se-phone[data-idx="5"] .se-screen{background-image:linear-gradient(180deg,#15050A 0%,#4A1820 60%,#7C2030 100%)}
+
+    /* Use order to place phones semantically (left-active-right) regardless of DOM order */
+    /* Active phone: center, full size */
+    #story-experience .se-phone.active{
+      width:320px;order:2;
+      transform:scale(1) translateZ(0);
+      z-index:3;
+      filter:drop-shadow(0 30px 64px rgba(0,0,0,.45));
+    }
+    /* Peek phones: smaller, tilted */
+    #story-experience .se-phone.peek-left{
+      width:230px;order:1;
+      transform:rotateY(20deg) translateX(20px) scale(.85);
+      opacity:.55;z-index:1;
+    }
+    #story-experience .se-phone.peek-right{
+      width:230px;order:3;
+      transform:rotateY(-20deg) translateX(-20px) scale(.85);
+      opacity:.55;z-index:1;
+    }
+    /* Hidden phone — collapses smoothly via width:0 + opacity (no abrupt position change) */
+    #story-experience .se-phone.hidden{
+      width:0;margin-left:-7px;margin-right:-7px;
+      opacity:0;transform:scale(.5);pointer-events:none;
+      z-index:-1;
+    }
+    #story-experience .se-phone:hover{opacity:1;filter:brightness(1.05)}
+    #story-experience .se-phone.active:hover{filter:drop-shadow(0 32px 64px rgba(0,0,0,.50)) brightness(1)}
+
+    /* Action bar (heart + share + more) */
+    #story-experience .se-actions{
+      position:relative;z-index:3;
+      display:flex;align-items:center;justify-content:center;gap:14px;
+      margin-top:20px;
+    }
+    #story-experience .se-action{
+      display:inline-flex;align-items:center;justify-content:center;gap:6px;
+      padding:10px 14px;border-radius:99px;background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.15);color:#fff;cursor:pointer;
+      font-size:12px;font-weight:700;backdrop-filter:blur(8px);
+      transition:all .2s ease;
+    }
+    #story-experience .se-action:hover{background:rgba(255,255,255,.18);transform:translateY(-1px)}
+    #story-experience .se-action.heart{background:#EF4444;border-color:transparent;width:44px;padding:0;height:44px}
+    #story-experience .se-action.heart svg{width:18px;height:18px}
+    #story-experience .se-action.heart.popped{animation:seHeartPop .35s ease}
+    @keyframes seHeartPop{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
+    #story-experience .se-action.share{width:44px;padding:0;height:44px;background:rgba(255,255,255,.10)}
+    #story-experience .se-action.share svg{width:18px;height:18px;color:#fff}
+    #story-experience .se-action.more{background:#fff;color:#0B0F30;border-color:transparent;padding:11px 22px;font-weight:800}
+
+    /* Floating hearts when heart clicked */
+    #story-experience .se-heart-overlay{
+      position:absolute;inset:0;pointer-events:none;z-index:4;overflow:hidden;
+    }
+    #story-experience .se-floating-heart{
+      position:absolute;bottom:80px;left:50%;color:#EF4444;font-size:26px;
+      animation:seFloat 1.8s ease-out forwards;
+    }
+    @keyframes seFloat{
+      0%{transform:translate(-50%,0) scale(.5);opacity:0}
+      20%{transform:translate(-50%,-40px) scale(1.2);opacity:1}
+      100%{transform:translate(-50%,-260px) scale(.7);opacity:0}
+    }
+
+    /* Personalization mapping grid */
+    #story-experience .se-mapping{margin-top:28px}
+    #story-experience .se-mapping-head{
+      display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;
+    }
+    #story-experience .se-mapping-tag{
+      font-size:10.5px;letter-spacing:1.8px;font-weight:800;text-transform:uppercase;
+      padding:5px 12px;border-radius:99px;background:rgba(0,31,184,.08);color:var(--brand);border:1px solid rgba(0,31,184,.18);
+    }
+    #story-experience .se-mapping-title{font-size:15px;font-weight:800;color:var(--ink);letter-spacing:-.2px}
+    #story-experience .se-mapping-rule{flex:1;height:1px;background:var(--line);min-width:60px}
+
+    #story-experience .se-grid{display:flex;flex-direction:column;gap:6px}
+    #story-experience .se-row{
+      display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1.3fr);gap:8px 12px;align-items:center;
+      background:var(--bg-1);border:1.5px solid var(--line);border-radius:12px;
+      padding:10px 14px;cursor:pointer;
+      transition:all .25s ease;text-align:left;
+    }
+    /* Arrows hidden in compact mode (direction implied by layout) */
+    #story-experience .se-row .se-arrow{display:none}
+    /* Layout: [avatar+name+role] | [segment pill (centered)] | [story thumb+title] */
+    #story-experience .se-cust{grid-column:1/2;min-width:0}
+    #story-experience .se-seg{grid-column:2/3;justify-self:center;text-align:center;white-space:normal}
+    #story-experience .se-story-out{grid-column:3/4;justify-self:end;min-width:0;max-width:100%}
+    #story-experience .se-row:hover{border-color:rgba(0,31,184,.30);transform:translateY(-1px);box-shadow:0 6px 14px rgba(15,18,53,.08)}
+    #story-experience .se-row.active{border-color:var(--brand);background:rgba(0,31,184,.04);box-shadow:0 0 0 2px rgba(0,31,184,.10),0 8px 18px rgba(0,31,184,.15)}
+
+    #story-experience .se-cust{display:flex;align-items:center;gap:10px;min-width:0}
+    #story-experience .se-av-wrap{position:relative;flex-shrink:0;width:48px;height:48px}
+    #story-experience .se-av-wrap::before{
+      content:"";position:absolute;inset:-6px;border-radius:50%;z-index:0;
+      background:conic-gradient(from 0deg,var(--c1,#8B5CFF) 0%,var(--c2,#3463FF) 40%,transparent 50%,transparent 100%);
+      opacity:.55;filter:blur(6px);animation:seHalo 7s linear infinite;
+    }
+    @keyframes seHalo{to{transform:rotate(360deg)}}
+    #story-experience .se-cust .av{
+      position:relative;z-index:1;
+      width:48px;height:48px;border-radius:50%;overflow:hidden;
+      background:linear-gradient(135deg,var(--c1,#8B5CFF),var(--c2,#3463FF));
+      color:#fff;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;letter-spacing:-.4px;
+      box-shadow:0 6px 16px rgba(15,18,53,.18),0 0 0 3px #fff,0 0 0 4px rgba(0,31,184,.06);
+    }
+    #story-experience .se-cust .av .photo{position:absolute;inset:0;background-size:cover;background-position:center top;display:none}
+    #story-experience .se-cust .av.has-photo .photo{display:block}
+    #story-experience .se-cust .av.has-photo .initial{display:none}
+    #story-experience .se-cust .badge{
+      position:absolute;bottom:-2px;right:-4px;z-index:2;
+      width:22px;height:22px;border-radius:50%;background:#fff;
+      display:flex;align-items:center;justify-content:center;font-size:12px;
+      box-shadow:0 4px 10px rgba(15,18,53,.18);border:1.5px solid rgba(15,18,53,.06);
+    }
+    #story-experience .se-row[data-idx="1"] .se-av-wrap,#story-experience .se-row[data-idx="1"] .se-cust .av{--c1:#FF6FB8;--c2:#FF9D6E}
+    #story-experience .se-row[data-idx="2"] .se-av-wrap,#story-experience .se-row[data-idx="2"] .se-cust .av{--c1:#22D3EE;--c2:#4CC76B}
+    #story-experience .se-row[data-idx="3"] .se-av-wrap,#story-experience .se-row[data-idx="3"] .se-cust .av{--c1:#F5C857;--c2:#FF9D6E}
+    #story-experience .se-row[data-idx="4"] .se-av-wrap,#story-experience .se-row[data-idx="4"] .se-cust .av{--c1:#FFA552;--c2:#22D3EE}
+    #story-experience .se-row[data-idx="5"] .se-av-wrap,#story-experience .se-row[data-idx="5"] .se-cust .av{--c1:#EF4444;--c2:#F5C857}
+    #story-experience .se-cust .info{display:flex;flex-direction:column;gap:1px;min-width:0}
+    #story-experience .se-cust .name{font-size:13px;font-weight:800;color:var(--ink);letter-spacing:-.2px}
+    #story-experience .se-cust .role{font-size:11px;color:var(--ink-mute);font-weight:600;line-height:1.3}
+
+    #story-experience .se-arrow{color:var(--ink-mute);opacity:.45}
+    #story-experience .se-arrow svg{width:16px;height:16px}
+    #story-experience .se-row.active .se-arrow{color:var(--brand);opacity:1}
+
+    #story-experience .se-seg{
+      font-size:11px;font-weight:700;color:var(--brand);
+      padding:5px 10px;border-radius:99px;background:rgba(0,31,184,.08);
+      border:1px solid rgba(0,31,184,.16);display:inline-block;
+      letter-spacing:.2px;text-align:center;line-height:1.2;
+    }
+
+    #story-experience .se-story-out{display:flex;align-items:center;gap:9px;min-width:0}
+    #story-experience .se-story-out .thumb{
+      width:32px;height:46px;border-radius:5px;flex-shrink:0;
+      background-size:cover;background-position:center;
+      box-shadow:0 3px 8px rgba(15,18,53,.18);
+    }
+    #story-experience .se-row[data-idx="0"] .se-story-out .thumb{background-image:linear-gradient(180deg,#0a1633,#2563eb)}
+    #story-experience .se-row[data-idx="1"] .se-story-out .thumb{background-image:linear-gradient(180deg,#f4f6fc,#e0e7ff)}
+    #story-experience .se-row[data-idx="2"] .se-story-out .thumb{background-image:linear-gradient(180deg,#dbeafe,#94a3b8)}
+    #story-experience .se-row[data-idx="3"] .se-story-out .thumb{background-image:linear-gradient(180deg,#1e293b,#64748b)}
+    #story-experience .se-row[data-idx="4"] .se-story-out .thumb{background-image:linear-gradient(180deg,#1e6091,#FFA552)}
+    #story-experience .se-row[data-idx="5"] .se-story-out .thumb{background-image:linear-gradient(180deg,#15050A,#7C2030)}
+    #story-experience .se-story-out .meta{display:flex;flex-direction:column;gap:0;min-width:0}
+    #story-experience .se-story-out .title{font-size:12px;font-weight:800;color:var(--ink);letter-spacing:-.2px;line-height:1.3}
+    #story-experience .se-story-out .sub{font-size:10.5px;color:var(--ink-mute);font-weight:600;line-height:1.3}
+
+    #story-experience .se-hint{display:none}
+
+    @media (max-width:1180px){
+      #story-experience .se-phone.active{width:240px}
+      #story-experience .se-phone.peek-left,#story-experience .se-phone.peek-right{width:170px}
+      #story-experience .se-phones{min-height:480px}
+      #story-experience .se-row{grid-template-columns:1fr;gap:10px;text-align:center}
+      #story-experience .se-arrow{transform:rotate(90deg);justify-self:center}
+    }
+    @media (max-width:720px){
+      #story-experience .se-phone.peek-left,#story-experience .se-phone.peek-right{display:none}
+      #story-experience .se-phone.active{width:220px}
+      #story-experience .se-phones{min-height:440px}
+    }
+  </style>
+
+  <div class="se-canvas">
+    <!-- Personalization Mapping (left column on desktop, top on mobile) -->
+    <div class="se-mapping" style="margin-top:0;margin-bottom:0;align-self:start">
+      <div class="se-mapping-head">
+        <span class="se-mapping-tag">Personalization Logic</span>
+        <span class="se-mapping-title">Who sees what story</span>
+        <span class="se-mapping-rule"></span>
+      </div>
+      <div class="se-grid" id="seGrid">
+        <button class="se-row active" data-idx="0">
+          <div class="se-cust">
+            <span class="se-av-wrap">
+              <span class="av" data-photo="./persona-aysel.jpg">
+                <span class="photo"></span>
+                <span class="initial">A</span>
+              </span>
+              <span class="badge" title="Travel">✈️</span>
+            </span>
+            <div class="info"><span class="name">Aysel · 42</span><span class="role">Frequent traveler · summer trip</span></div>
+          </div>
+          <span class="se-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          <div class="se-seg">Travel · Premium Real Estate</div>
+          <span class="se-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          <div class="se-story-out">
+            <span class="thumb"></span>
+            <div class="meta"><span class="title">SEA Breeze · axşam bazarı</span><span class="sub">20% endirim</span></div>
+          </div>
+        </button>
+
+        <button class="se-row" data-idx="1">
+          <div class="se-cust">
+            <span class="se-av-wrap">
+              <span class="av" data-photo="./persona-gunel.jpg">
+                <span class="photo"></span>
+                <span class="initial">G</span>
+              </span>
+              <span class="badge" title="Hourly Offer">⏰</span>
+            </span>
+            <div class="info"><span class="name">Gunel · 28</span><span class="role">Hourly drops · weekend cafe + cashback</span></div>
+          </div>
+          <span class="se-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          <div class="se-seg">Hourly Offer · Coffee Lover</div>
+          <span class="se-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          <div class="se-story-out">
+            <span class="thumb"></span>
+            <div class="meta"><span class="title">ABB Home · HiperSən</span><span class="sub">Son saat: Starbucks 00:05</span></div>
+          </div>
+        </button>
+
+        <button class="se-row" data-idx="2">
+          <div class="se-cust">
+            <span class="se-av-wrap">
+              <span class="av" data-photo="./persona-rauf.jpg">
+                <span class="photo"></span>
+                <span class="initial">R</span>
+              </span>
+              <span class="badge" title="Foodie">🥟</span>
+            </span>
+            <div class="info"><span class="name">Rauf · 24</span><span class="role">Restaurant spender · Georgian cuisine</span></div>
+          </div>
+          <span class="se-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          <div class="se-seg">Foodie · Georgian cuisine</div>
+          <span class="se-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          <div class="se-story-out">
+            <span class="thumb"></span>
+            <div class="meta"><span class="title">Season for Khinkali</span><span class="sub">Megobari · 50% off menu</span></div>
+          </div>
+        </button>
+
+        <button class="se-row" data-idx="3">
+          <div class="se-cust">
+            <span class="se-av-wrap">
+              <span class="av" data-photo="./persona-nigar.jpg">
+                <span class="photo"></span>
+                <span class="initial">N</span>
+              </span>
+              <span class="badge" title="Savings">💰</span>
+            </span>
+            <div class="info"><span class="name">Nigar · 35</span><span class="role">Saver · long-term planner · future goals</span></div>
+          </div>
+          <span class="se-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          <div class="se-seg">Savings · Goal-driven planner</div>
+          <span class="se-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          <div class="se-story-out">
+            <span class="thumb"></span>
+            <div class="meta"><span class="title">Keçmiş / Gələcək</span><span class="sub">Saving challenge · 4 days</span></div>
+          </div>
+        </button>
+
+        <button class="se-row" data-idx="4">
+          <div class="se-cust">
+            <span class="se-av-wrap">
+              <span class="av" data-photo="./persona-leyla.jpg">
+                <span class="photo"></span>
+                <span class="initial">L</span>
+              </span>
+              <span class="badge" title="Summer">🌴</span>
+            </span>
+            <div class="info"><span class="name">Leyla · 30</span><span class="role">Summer enthusiast · weekend escapes</span></div>
+          </div>
+          <span class="se-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          <div class="se-seg">Summer · Vacation seeker</div>
+          <span class="se-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          <div class="se-story-out">
+            <span class="thumb"></span>
+            <div class="meta"><span class="title">HiperYay · Yay fürsətləri</span><span class="sub">Sərin ünvanlar · 18.05.2026</span></div>
+          </div>
+        </button>
+
+        <button class="se-row" data-idx="5">
+          <div class="se-cust">
+            <span class="se-av-wrap">
+              <span class="av" data-photo="./persona-tural.jpg">
+                <span class="photo"></span>
+                <span class="initial">T</span>
+              </span>
+              <span class="badge" title="Cinema">🎬</span>
+            </span>
+            <div class="info"><span class="name">Tural · 27</span><span class="role">Weekend movies · CinemaPlus regular</span></div>
+          </div>
+          <span class="se-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          <div class="se-seg">Entertainment · Movie nights</div>
+          <span class="se-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          <div class="se-story-out">
+            <span class="thumb"></span>
+            <div class="meta"><span class="title">Həftəsonu filmləri</span><span class="sub">Cinema · weekend drop</span></div>
+          </div>
+        </button>
+      </div>
+      <div class="se-hint">Click any customer row to switch the active story · <kbd>Space</kbd> or click active phone to pause · <kbd>←</kbd><kbd>→</kbd> to cycle</div>
+    </div>
+
+    <!-- Story Stage (phones) -->
+    <div class="se-stage theme-0" id="seStage">
+      <!-- Theme decorative emojis (one per theme, fades when its theme is active) -->
+      <div class="se-deco">
+        <i class="t0" style="top:18%;left:8%;animation-delay:0s">🌃</i>
+        <i class="t0" style="top:70%;right:12%;animation-delay:1.2s">✨</i>
+        <i class="t1" style="top:14%;left:10%;animation-delay:.6s">⏱️</i>
+        <i class="t1" style="top:72%;right:14%;animation-delay:1.8s">☕</i>
+        <i class="t2" style="top:16%;left:9%;animation-delay:.4s">❄️</i>
+        <i class="t2" style="top:74%;right:10%;animation-delay:1.4s">🥟</i>
+        <i class="t3" style="top:18%;left:11%;animation-delay:.8s">📓</i>
+        <i class="t3" style="top:72%;right:12%;animation-delay:2s">💡</i>
+        <i class="t4" style="top:16%;left:8%;animation-delay:.5s">🌴</i>
+        <i class="t4" style="top:20%;right:10%;animation-delay:1.6s;font-size:32px">☀️</i>
+        <i class="t4" style="top:72%;left:14%;animation-delay:2.2s">🍍</i>
+        <i class="t4" style="top:74%;right:14%;animation-delay:.9s">🌊</i>
+        <i class="t5" style="top:16%;left:10%;animation-delay:.4s">🎬</i>
+        <i class="t5" style="top:20%;right:12%;animation-delay:1.5s">🍿</i>
+        <i class="t5" style="top:72%;left:12%;animation-delay:2.1s">🎥</i>
+        <i class="t5" style="top:74%;right:10%;animation-delay:.8s">🎞️</i>
+      </div>
+      <!-- 5-segment progress bar + pause/play button -->
+      <div class="se-progress-row">
+        <div class="se-progress" id="seProgress">
+          <span class="seg active"></span>
+          <span class="seg"></span>
+          <span class="seg"></span>
+          <span class="seg"></span>
+          <span class="seg"></span>
+          <span class="seg"></span>
+        </div>
+        <button class="se-pause-btn" id="sePauseBtn" aria-label="Pause auto-play" title="Pause / Resume (Space)">
+          <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+          <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><polygon points="7 5 19 12 7 19 7 5"/></svg>
+        </button>
+      </div>
+      <!-- Paused badge that floats over phones when paused -->
+      <div class="se-paused-badge">
+        <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+        Paused
+      </div>
+
+      <!-- 3 phones row -->
+      <div class="se-phones" id="sePhones">
+        <button class="se-phone peek-left" data-idx="2" aria-label="Khinkali story">
+          <div class="se-phone-frame">
+            <div class="se-screen" data-placeholder="story-3.png" style="background-image:url('./story-3.png'),linear-gradient(180deg,#dbeafe 0%,#94a3b8 100%)"></div>
+          </div>
+        </button>
+        <button class="se-phone active" data-idx="0" aria-label="SEA Breeze story">
+          <div class="se-phone-frame">
+            <div class="se-screen" data-placeholder="story-1.png" style="background-image:url('./story-1.png'),linear-gradient(180deg,#0a1633 0%,#2563eb 100%)"></div>
+          </div>
+        </button>
+        <button class="se-phone peek-right" data-idx="1" aria-label="ABB Home story">
+          <div class="se-phone-frame">
+            <div class="se-screen" data-placeholder="story-2.png" style="background-image:url('./story-2.png'),linear-gradient(180deg,#f4f6fc 0%,#e0e7ff 100%)"></div>
+          </div>
+        </button>
+        <button class="se-phone hidden" data-idx="3" aria-label="Keçmiş / Gələcək story">
+          <div class="se-phone-frame">
+            <div class="se-screen" data-placeholder="story-4.png" style="background-image:url('./story-4.png'),linear-gradient(180deg,#1e293b 0%,#334155 60%,#64748b 100%)"></div>
+          </div>
+        </button>
+        <button class="se-phone hidden" data-idx="4" aria-label="HiperYay summer story">
+          <div class="se-phone-frame">
+            <div class="se-screen" data-placeholder="story-5.png" style="background-image:url('./story-5.png'),linear-gradient(180deg,#0a1e3f 0%,#1e6091 40%,#FFA552 100%)"></div>
+          </div>
+        </button>
+        <button class="se-phone hidden" data-idx="5" aria-label="Weekend cinema story">
+          <div class="se-phone-frame">
+            <div class="se-screen" data-placeholder="story-6.png" style="background-image:url('./story-6.png'),linear-gradient(180deg,#15050A 0%,#4A1820 60%,#7C2030 100%)"></div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Floating hearts overlay -->
+      <div class="se-heart-overlay" id="seHeartOverlay"></div>
+
+      <!-- Action buttons -->
+      <div class="se-actions">
+        <button class="se-action heart" id="seHeartBtn" aria-label="Like">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.5-9.5-9C1 9 2.5 5 6 5c2 0 3.5 1 4 2 .5-1 2-2 4-2 3.5 0 5 4 3.5 7-2.5 4.5-9.5 9-9.5 9z"/></svg>
+        </button>
+        <button class="se-action share" aria-label="Share">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+        <button class="se-action more">More</button>
       </div>
     </div>
   </div>
@@ -2836,6 +3427,135 @@ document.addEventListener('keydown',e=>{
     else if(e.key==='ArrowLeft'){ e.preventDefault(); ccGoTo(ccCurrent-1); }
   });
   if(document.getElementById('commission')) ccProcess(PROFILES[0]);
+})();
+
+/* ====== STORY EXPERIENCE ====== */
+(function storyExperience(){
+  const root=document.getElementById('story-experience'); if(!root) return;
+  const phones=root.querySelectorAll('.se-phone');
+  const rows=root.querySelectorAll('.se-row');
+  const segments=root.querySelectorAll('.se-progress .seg');
+  const heartBtn=document.getElementById('seHeartBtn');
+  const heartOverlay=document.getElementById('seHeartOverlay');
+  const pauseBtn=document.getElementById('sePauseBtn');
+  let current=0;
+  let cycleTimer=null;
+  let paused=false;
+
+  const TOTAL=6;
+  const stage=document.getElementById('seStage');
+  function setActive(idx){
+    idx=((idx%TOTAL)+TOTAL)%TOTAL;
+    current=idx;
+    /* Show 3 of N phones: left=current-1, active=current, right=current+1, others hidden */
+    const left=(idx+TOTAL-1)%TOTAL, right=(idx+1)%TOTAL;
+    phones.forEach(p=>{
+      p.classList.remove('active','peek-left','peek-right','hidden');
+      const di=+p.dataset.idx;
+      if(di===idx) p.classList.add('active');
+      else if(di===left) p.classList.add('peek-left');
+      else if(di===right) p.classList.add('peek-right');
+      else p.classList.add('hidden');
+    });
+    /* Swap stage theme to match active story */
+    if(stage){
+      for(let t=0;t<TOTAL;t++) stage.classList.remove('theme-'+t);
+      stage.classList.add('theme-'+idx);
+    }
+    /* Update progress bars */
+    segments.forEach((s,i)=>{
+      s.classList.remove('active','done');
+      if(i<idx) s.classList.add('done');
+      else if(i===idx) s.classList.add('active');
+    });
+    /* Force restart animation on active segment */
+    if(segments[idx]){
+      const seg=segments[idx];
+      seg.classList.remove('active');
+      void seg.offsetWidth;
+      seg.classList.add('active');
+    }
+    /* Update mapping rows */
+    rows.forEach(r=>r.classList.toggle('active',+r.dataset.idx===idx));
+    restartAutoCycle();
+  }
+  function restartAutoCycle(){
+    if(cycleTimer) clearTimeout(cycleTimer);
+    if(paused) return;
+    cycleTimer=setTimeout(()=>setActive(current+1),6000);
+  }
+  function setPaused(v){
+    paused=v;
+    root.classList.toggle('paused',paused);
+    if(pauseBtn){
+      pauseBtn.setAttribute('aria-label', paused?'Resume auto-play':'Pause auto-play');
+      pauseBtn.setAttribute('title', paused?'Resume (Space)':'Pause (Space)');
+    }
+    if(paused){ if(cycleTimer){ clearTimeout(cycleTimer); cycleTimer=null; } }
+    else{ restartAutoCycle(); }
+  }
+  function togglePaused(){ setPaused(!paused); }
+  /* Phone clicks: peek phones rotate into center; active phone toggles pause */
+  phones.forEach(p=>p.addEventListener('click',e=>{
+    const idx=+p.dataset.idx;
+    if(idx===current){ togglePaused(); }
+    else{ setActive(idx); }
+  }));
+  /* Pause button */
+  if(pauseBtn) pauseBtn.addEventListener('click',togglePaused);
+  /* Row clicks: jump to that story */
+  rows.forEach(r=>r.addEventListener('click',()=>setActive(+r.dataset.idx)));
+  /* Heart shower */
+  function popHearts(){
+    heartBtn.classList.add('popped');
+    setTimeout(()=>heartBtn.classList.remove('popped'),350);
+    for(let i=0;i<5;i++){
+      setTimeout(()=>{
+        const h=document.createElement('span');
+        h.className='se-floating-heart';
+        h.textContent='❤';
+        h.style.left=(45+Math.random()*10)+'%';
+        h.style.fontSize=(20+Math.random()*14)+'px';
+        h.style.animationDelay=(Math.random()*0.2)+'s';
+        heartOverlay.appendChild(h);
+        setTimeout(()=>h.remove(),2000);
+      },i*120);
+    }
+  }
+  heartBtn.addEventListener('click',popHearts);
+  /* Keyboard ← / → / Space when section in view */
+  document.addEventListener('keydown',e=>{
+    if(document.body.classList.contains('present-mode')) return;
+    /* Skip if user is typing in an input */
+    if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA') return;
+    const r=root.getBoundingClientRect();
+    if(!(r.top<window.innerHeight*0.6 && r.bottom>window.innerHeight*0.4)) return;
+    if(e.key==='ArrowRight'){ e.preventDefault(); setActive(current+1); }
+    else if(e.key==='ArrowLeft'){ e.preventDefault(); setActive(current-1); }
+    else if(e.key===' '||e.code==='Space'){ e.preventDefault(); togglePaused(); }
+  });
+  /* Detect if story images exist; if so mark phones for proper styling */
+  ['./story-1.png','./story-2.png','./story-3.png','./story-4.png','./story-5.png','./story-6.png'].forEach((src,i)=>{
+    const test=new Image();
+    test.onload=()=>{
+      const ph=root.querySelector(`.se-phone[data-idx="${i}"] .se-screen`);
+      if(ph) ph.classList.add('has-image');
+      const thumb=root.querySelector(`.se-row[data-idx="${i}"] .se-story-out .thumb`);
+      if(thumb) thumb.style.backgroundImage=`url("${src}")`;
+    };
+    test.src=src;
+  });
+  /* Try loading persona photos — gracefully fallback to initial+gradient if not found */
+  root.querySelectorAll('.se-cust .av').forEach(av=>{
+    const src=av.dataset.photo; if(!src) return;
+    const test=new Image();
+    test.onload=()=>{
+      const ph=av.querySelector('.photo');
+      if(ph){ ph.style.backgroundImage=`url("${src}")`; av.classList.add('has-photo'); }
+    };
+    test.src=src;
+  });
+  restartAutoCycle();
 })();
 
 /* ====== INTERNAL FEE MANAGEMENT ====== */
