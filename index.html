@@ -707,7 +707,7 @@
   body.present-mode #hpe .hpe-hub-node .label{font-size:9.5px;padding:3px 8px}
   body.present-mode #hpe .hpe-hub-hint{margin-top:10px;font-size:10px;flex-shrink:0}
   .present-hud{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:91;display:none;align-items:center;gap:14px;padding:10px 18px;background:rgba(15,18,53,.92);color:#fff;border-radius:14px;backdrop-filter:blur(10px);box-shadow:var(--shadow-lg)}
-  body.present-mode .present-hud{display:flex}
+  body.present-mode .present-hud{display:none !important}
   .present-hud .dots{display:flex;gap:5px}
   .present-hud .d{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.30);cursor:pointer}
   .present-hud .d.active{background:#fff;width:22px;border-radius:99px}
@@ -715,6 +715,63 @@
   .present-hud .exit{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.20);color:#fff;padding:5px 10px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer}
   .present-hint{position:fixed;bottom:24px;right:24px;z-index:91;display:none;font-size:11px;color:var(--ink-mute);background:#fff;border:1px solid var(--line);padding:8px 14px;border-radius:10px;box-shadow:var(--shadow)}
   body.present-mode .present-hint{display:none !important}
+
+  /* ===== STORY EXPERIENCE in present mode — fit in one viewport ===== */
+  body.present-mode #story-experience{
+    padding:24px 32px;justify-content:flex-start;
+  }
+  body.present-mode #story-experience .section-head{margin-bottom:14px;flex-shrink:0}
+  body.present-mode #story-experience .section-head h2{font-size:clamp(24px,2.8vw,36px);margin-bottom:4px}
+  body.present-mode #story-experience .section-head p{font-size:12px;max-width:560px}
+  body.present-mode #story-experience .section-eyebrow{font-size:10px;padding:4px 11px;margin-bottom:8px}
+  body.present-mode #story-experience .se-canvas{
+    flex:1 1 auto;min-height:0;padding:14px;border-radius:18px;
+    align-items:center;gap:16px;
+  }
+  /* Compact phone stage */
+  body.present-mode #story-experience .se-stage{padding:14px 14px 12px;border-radius:14px;height:100%;display:flex;flex-direction:column}
+  body.present-mode #story-experience .se-progress-row{margin:0 auto 10px;max-width:340px}
+  body.present-mode #story-experience .se-phones{
+    min-height:0;flex:1 1 auto;gap:10px;
+  }
+  /* Phones sized by viewport HEIGHT so the slide never overflows 100vh */
+  body.present-mode #story-experience .se-phone.active{width:min(310px,calc((100vh - 320px)*.42))}
+  body.present-mode #story-experience .se-phone.peek-left,
+  body.present-mode #story-experience .se-phone.peek-right{width:min(220px,calc((100vh - 320px)*.30))}
+  body.present-mode #story-experience .se-canvas{min-height:0;overflow:hidden}
+  body.present-mode #story-experience .se-mapping{min-height:0;overflow-y:auto}
+  body.present-mode #story-experience .se-phones{min-height:0 !important}
+  @media (max-height:760px){
+    body.present-mode #story-experience .section-head p{display:none}
+    body.present-mode #story-experience .se-mapping-row{padding:6px 9px}
+    body.present-mode #story-experience .se-progress-row{margin-bottom:6px}
+  }
+  body.present-mode #story-experience .se-phone-frame{border-radius:34px;padding:7px}
+  body.present-mode #story-experience .se-phone-frame::before{width:84px;height:20px;top:13px}
+  body.present-mode #story-experience .se-screen{border-radius:27px}
+  body.present-mode #story-experience .se-actions{margin-top:10px;gap:10px}
+  body.present-mode #story-experience .se-action{padding:7px 11px;font-size:11px}
+  body.present-mode #story-experience .se-action.heart,
+  body.present-mode #story-experience .se-action.share{width:34px;height:34px}
+  body.present-mode #story-experience .se-action.more{padding:8px 16px}
+  /* Compact mapping side */
+  body.present-mode #story-experience .se-mapping{margin-top:0}
+  body.present-mode #story-experience .se-mapping-head{margin-bottom:10px;gap:10px}
+  body.present-mode #story-experience .se-mapping-tag{font-size:9.5px;padding:3px 9px;letter-spacing:1.4px}
+  body.present-mode #story-experience .se-mapping-title{font-size:13px}
+  body.present-mode #story-experience .se-mapping-row{padding:8px 10px;gap:10px}
+  body.present-mode #story-experience .se-mapping-rows{gap:6px}
+  body.present-mode #story-experience .se-persona-avatar{width:34px;height:34px;font-size:14px}
+  body.present-mode #story-experience .se-persona-name{font-size:12px}
+  body.present-mode #story-experience .se-persona-meta{font-size:10px;line-height:1.35}
+  body.present-mode #story-experience .se-mapping-pill{font-size:10px;padding:4px 9px}
+  body.present-mode #story-experience .se-story-mini-thumb{width:34px;height:46px;border-radius:6px}
+  body.present-mode #story-experience .se-mapping-story{gap:8px}
+  body.present-mode #story-experience .se-mapping-story strong{font-size:11.5px}
+  body.present-mode #story-experience .se-mapping-story span{font-size:10px}
+  /* No first/last auto-margin trick for story */
+  body.present-mode #story-experience > :first-child,
+  body.present-mode #story-experience > :last-child{margin-top:0 !important;margin-bottom:0 !important}
 
   /* ===== RESPONSIVE ===== */
   @media (max-width:1180px){
@@ -730,6 +787,71 @@
     .cc-arrow-h{transform:rotate(90deg)}
     .cc-branches,.cc-profile-row{grid-template-columns:repeat(2,1fr)}
   }
+
+  /* ===== DYNAMIC ENHANCEMENTS ===== */
+  /* scroll progress bar */
+  #scrollProgress{position:fixed;top:0;left:0;height:3px;width:100%;z-index:200;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--brand),#8B5CFF 50%,#FF6FB8);box-shadow:0 0 12px rgba(94,61,245,.45);pointer-events:none}
+  body.present-mode #scrollProgress{display:none}
+
+  /* ambient drifting orbs */
+  .bg-orbs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .bg-orbs span{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;will-change:transform}
+  .bg-orbs .orb1{width:520px;height:520px;left:-140px;top:-120px;background:radial-gradient(circle at 30% 30%,rgba(139,92,255,.32),transparent 70%);animation:orbA 26s ease-in-out infinite alternate}
+  .bg-orbs .orb2{width:460px;height:460px;right:-120px;top:18%;background:radial-gradient(circle at 60% 40%,rgba(255,111,184,.26),transparent 70%);animation:orbB 32s ease-in-out infinite alternate}
+  .bg-orbs .orb3{width:560px;height:560px;left:32%;bottom:-220px;background:radial-gradient(circle at 50% 50%,rgba(52,99,255,.24),transparent 70%);animation:orbC 38s ease-in-out infinite alternate}
+  @keyframes orbA{to{transform:translate(90px,70px) scale(1.12)}}
+  @keyframes orbB{to{transform:translate(-80px,90px) scale(.92)}}
+  @keyframes orbC{to{transform:translate(-70px,-80px) scale(1.08)}}
+  @media (prefers-reduced-motion:reduce){.bg-orbs span{animation:none}}
+
+  /* scroll reveal */
+  .rv{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.22,.65,.3,1),transform .7s cubic-bezier(.22,.65,.3,1);transition-delay:var(--rvd,0ms)}
+  .rv.in{opacity:1;transform:none}
+  body.present-mode .rv{opacity:1;transform:none;transition:none}
+  @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+  /* animated gradient shimmer on headline accents */
+  .hero h1 .grad,.section-head h2 .grad{background:linear-gradient(120deg,var(--brand) 0%,#5e3df5 32%,#a855f7 50%,#5e3df5 68%,var(--brand) 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;animation:gradShift 7s ease-in-out infinite}
+  @keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+  @media (prefers-reduced-motion:reduce){.hero h1 .grad,.section-head h2 .grad{animation:none}}
+
+  /* hero floating cards: gentle bob */
+  @media (min-width:1101px) and (prefers-reduced-motion:no-preference){
+    .h-card.tl{animation:cardBob 6s ease-in-out infinite}
+    .h-card.tr{animation:cardBob 7s ease-in-out 1.2s infinite}
+    .h-card.bl{animation:cardBob 6.5s ease-in-out .6s infinite}
+    .h-card.br{animation:cardBob 7.5s ease-in-out 1.8s infinite}
+  }
+  @keyframes cardBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+  /* flowing dashed connections in hero */
+  .h-connections path{animation:dashFlow 1.6s linear infinite}
+  @keyframes dashFlow{to{stroke-dashoffset:-20}}
+  @media (prefers-reduced-motion:reduce){.h-connections path{animation:none}}
+
+  /* CTA shine sweep */
+  .hero-cta{position:relative;overflow:hidden}
+  .hero-cta::after{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);animation:ctaShine 3.6s ease-in-out infinite}
+  @keyframes ctaShine{0%,55%{left:-80%}100%{left:140%}}
+  @media (prefers-reduced-motion:reduce){.hero-cta::after{animation:none}}
+
+  /* side dot navigation */
+  .dotnav{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;gap:10px}
+  .dotnav a{position:relative;width:10px;height:10px;border-radius:50%;background:rgba(22,26,54,.18);border:1px solid rgba(22,26,54,.10);transition:all .25s ease;display:block}
+  .dotnav a:hover{background:var(--brand-3)}
+  .dotnav a.on{background:var(--brand);box-shadow:0 0 0 4px rgba(0,31,184,.14),0 0 10px rgba(94,61,245,.5);transform:scale(1.25)}
+  .dotnav a .tip{position:absolute;right:22px;top:50%;transform:translateY(-50%) translateX(6px);background:var(--ink);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.4px;padding:5px 10px;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:all .25s ease;box-shadow:0 8px 18px rgba(15,18,53,.25)}
+  .dotnav a:hover .tip{opacity:1;transform:translateY(-50%) translateX(0)}
+  body.present-mode .dotnav{display:none}
+  @media (max-width:900px){.dotnav{display:none}}
+
+  /* stage cards: smoother tilt base */
+  .stage-card{transform-style:preserve-3d}
+
+  /* user request: hide these elements */
+  .hero-cta-hint{display:none !important}
+  #story-experience .se-pause-btn{display:none !important}
+  .hpe-hub-hint{display:none !important}
 </style>
 </head>
 <body>
@@ -3827,5 +3949,87 @@ document.addEventListener('keydown',e=>{
   });
 })();
 </script>
+
+<script>
+/* ===== DYNAMIC ENHANCEMENTS ===== */
+(function(){
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* scroll progress bar */
+  const pb = document.createElement('div'); pb.id = 'scrollProgress'; document.body.appendChild(pb);
+  const onScroll = () => {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    pb.style.transform = 'scaleX(' + (max > 0 ? h.scrollTop / max : 0) + ')';
+  };
+  document.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  /* ambient orbs */
+  const orbs = document.createElement('div'); orbs.className = 'bg-orbs';
+  orbs.innerHTML = '<span class="orb1"></span><span class="orb2"></span><span class="orb3"></span>';
+  document.body.prepend(orbs);
+
+  /* scroll reveal (sections only, hero untouched) */
+  if(!reduce){
+    document.querySelectorAll('.section').forEach(sec => {
+      let i = 0;
+      [...sec.children].forEach(el => {
+        if(el.tagName === 'STYLE' || el.tagName === 'SCRIPT') return;
+        el.classList.add('rv');
+        el.style.setProperty('--rvd', Math.min(i * 110, 440) + 'ms');
+        i++;
+      });
+    });
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:.1, rootMargin:'0px 0px -60px 0px'});
+    document.querySelectorAll('.rv').forEach(el => io.observe(el));
+  }
+
+  /* side dot navigation with scroll spy */
+  const secs = [...document.querySelectorAll('section[id]')];
+  if(secs.length){
+    const nav = document.createElement('nav'); nav.className = 'dotnav';
+    const label = s => {
+      const h = s.querySelector('.section-head h2, h1');
+      let t = h ? h.textContent.trim().replace(/\s+/g,' ') : s.id;
+      return t.length > 30 ? t.slice(0,30) + '…' : t;
+    };
+    secs.forEach(s => {
+      const a = document.createElement('a');
+      a.href = '#' + s.id;
+      a.innerHTML = '<span class="tip">' + label(s) + '</span>';
+      a.addEventListener('click', ev => { ev.preventDefault(); s.scrollIntoView({behavior:'smooth'}); });
+      nav.appendChild(a);
+    });
+    document.body.appendChild(nav);
+    const spy = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if(e.isIntersecting){
+          const i = secs.indexOf(e.target);
+          [...nav.children].forEach((a,k) => a.classList.toggle('on', k === i));
+        }
+      });
+    }, {threshold:0, rootMargin:'-45% 0px -45% 0px'});
+    secs.forEach(s => spy.observe(s));
+  }
+
+  /* 3D tilt on stage cards */
+  if(!reduce && window.matchMedia('(pointer:fine)').matches){
+    document.querySelectorAll('.stage-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - .5;
+        const y = (e.clientY - r.top) / r.height - .5;
+        card.style.transform = 'translateY(-4px) perspective(800px) rotateX(' + (-y*5).toFixed(2) + 'deg) rotateY(' + (x*6).toFixed(2) + 'deg)';
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    });
+  }
+})();
+</script>
+
 </body>
 </html>
