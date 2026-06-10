@@ -476,7 +476,7 @@
   .cc-flow-arrows .arrowhead.p5.active{fill:#22C55E}
 
   /* Branch labels */
-  .cc-branches{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;width:100%;max-width:1280px;margin-bottom:10px}
+  .cc-branches{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;max-width:1280px;margin-bottom:10px}
   .cc-bl{
     text-align:center;font-size:11px;font-weight:800;color:var(--brand);
     letter-spacing:.4px;transition:all .3s ease;
@@ -488,7 +488,7 @@
   .cc-bl.p5-label.active-branch{box-shadow:0 0 0 2px rgba(34,197,94,.25)}
 
   /* Profile + UI row (5 columns) */
-  .cc-profile-row{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;width:100%;max-width:1280px;margin:0 auto}
+  .cc-profile-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;max-width:1280px;margin:0 auto}
 
   /* Connector to UI lane */
   .cc-swimlane.client::before{
@@ -779,7 +779,7 @@
     .lanes-stage-row,.lane-row{grid-template-columns:180px repeat(5,minmax(110px,1fr));overflow-x:auto}
     .matrix{grid-template-columns:1fr}
     .cc-workstreams{grid-template-columns:1fr}
-    .cc-branches,.cc-profile-row{grid-template-columns:repeat(3,1fr);gap:10px}
+    .cc-branches,.cc-profile-row{grid-template-columns:repeat(2,1fr);gap:10px}
   }
   @media (max-width:720px){
     .section{padding:60px 18px 30px}
@@ -852,6 +852,39 @@
   .hero-cta-hint{display:none !important}
   #story-experience .se-pause-btn{display:none !important}
   .hpe-hub-hint{display:none !important}
+
+  /* ===== P5 phone (ABB Mobile · HiperSən) ===== */
+  .p5-phone-wrap{display:flex;flex-direction:column;align-items:center;gap:10px}
+  .p5-phone{width:min(300px,100%);background:#0B0F1A;border-radius:34px;padding:8px;box-shadow:0 24px 50px rgba(0,0,0,.35);position:relative}
+  .p5-phone::before{content:"";position:absolute;top:14px;left:50%;transform:translateX(-50%);width:84px;height:20px;border-radius:99px;background:#0B0F1A;z-index:3}
+  .p5-screen{border-radius:26px;overflow:hidden;background:#EEF0F6;aspect-ratio:9/19.5;background-size:100% auto;background-position:top center;background-repeat:no-repeat;position:relative}
+  .p5-screen.has-image .p5s{display:none}
+  .p5-phone-cap{font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;font-weight:800;color:var(--ink-mute)}
+  .p5s{position:absolute;inset:0;padding:34px 16px 14px;display:flex;flex-direction:column;color:#161A36;background:#EEF0F6}
+  .p5s-status{display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:700;margin-bottom:10px}
+  .p5s-status .ic{display:inline-flex;align-items:center;gap:3px}
+  .p5s-back{margin-bottom:6px;color:#161A36}
+  .p5s-h1{font-size:22px;font-weight:800;letter-spacing:-.5px}
+  .p5s-sub{font-size:11px;color:var(--ink-mute);margin:2px 0 10px;font-weight:600}
+  .p5s-tabs{display:flex;background:#E2E5EE;border-radius:10px;padding:3px;margin-bottom:12px}
+  .p5s-tabs span{flex:1;text-align:center;font-size:10.5px;font-weight:700;color:var(--ink-2);padding:6px 4px;border-radius:8px}
+  .p5s-tabs .on{background:#fff;box-shadow:0 1px 4px rgba(15,18,53,.12);color:#161A36}
+  .p5s-label{font-size:12px;font-weight:700;margin-bottom:8px}
+  .p5s-cards{display:flex;gap:8px;flex:1;min-height:0}
+  .p5s-card{flex:1;border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:8px;overflow:hidden}
+  .p5s-card.blue{background:#DCE6FB}
+  .p5s-card.green{background:#DCF7DF}
+  .p5s-card .badge{align-self:flex-start;font-size:9px;font-weight:800;color:#fff;padding:3px 8px;border-radius:99px}
+  .p5s-card.blue .badge{background:#2B5CE6}
+  .p5s-card.green .badge{background:#16A34A}
+  .p5s-card p{margin:0;font-size:10.5px;font-weight:700;line-height:1.35}
+  .p5s-card .art{margin-top:auto;align-self:flex-end;font-size:30px;line-height:1}
+
+  .p5s-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--ink-mute);background:repeating-linear-gradient(45deg,#F2F4FA,#F2F4FA 10px,#EBEEF7 10px,#EBEEF7 20px);text-align:center;padding:20px}
+  .p5s-placeholder svg{width:34px;height:34px;opacity:.55}
+  .p5s-placeholder span{font-size:12px;font-weight:800;letter-spacing:.4px}
+  .p5s-placeholder small{font-size:10px;font-weight:600;max-width:170px;line-height:1.4}
+  .p5-screen.has-image .p5s-placeholder{display:none}
 </style>
 </head>
 <body>
@@ -1047,18 +1080,14 @@
                 <marker id="ccArrowHead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 Z" class="arrowhead"/></marker>
                 <marker id="ccArrowHeadP5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 Z" class="arrowhead p5"/></marker>
               </defs>
-              <!-- 6 fan-out arrows from diamond bottom-center (500,0) to each branch label position -->
-              <path id="ccArrow-p1"      d="M 500 0 C 500 25, 83  25, 83  58" marker-end="url(#ccArrowHead)"/>
-              <path id="ccArrow-p3"      class="dashed" d="M 500 0 C 500 25, 250 25, 250 58" marker-end="url(#ccArrowHead)"/>
-              <path id="ccArrow-p4"      class="dashed" d="M 500 0 C 500 25, 416 25, 416 58" marker-end="url(#ccArrowHead)"/>
-              <path id="ccArrow-nomatch" d="M 500 0 C 500 25, 583 25, 583 58" marker-end="url(#ccArrowHead)"/>
-              <path id="ccArrow-p2"      d="M 500 0 C 500 25, 750 25, 750 58" marker-end="url(#ccArrowHead)"/>
-              <path id="ccArrow-p5"      class="p5" d="M 500 0 C 500 25, 916 25, 916 58" marker-end="url(#ccArrowHeadP5)"/>
+              <!-- 4 fan-out arrows from diamond bottom-center (500,0) to each branch label position -->
+              <path id="ccArrow-p1"      d="M 500 0 C 500 25, 125 25, 125 58" marker-end="url(#ccArrowHead)"/>
+              <path id="ccArrow-nomatch" d="M 500 0 C 500 25, 375 25, 375 58" marker-end="url(#ccArrowHead)"/>
+              <path id="ccArrow-p2"      d="M 500 0 C 500 25, 625 25, 625 58" marker-end="url(#ccArrowHead)"/>
+              <path id="ccArrow-p5"      class="p5" d="M 500 0 C 500 25, 875 25, 875 58" marker-end="url(#ccArrowHeadP5)"/>
             </svg>
             <div class="cc-branches">
               <div class="cc-bl" id="ccbl-p1">P1</div>
-              <div class="cc-bl dashed-label" id="ccbl-p3">P3</div>
-              <div class="cc-bl dashed-label" id="ccbl-p4">P4</div>
               <div class="cc-bl" id="ccbl-nomatch">no match</div>
               <div class="cc-bl" id="ccbl-p2">P2</div>
               <div class="cc-bl p5-label" id="ccbl-p5">P5</div>
@@ -1067,14 +1096,6 @@
               <div class="cc-box" id="ccout-3">
                 <div class="bx-title">Assign 3%</div>
                 <div class="bx-sub">Profile 1</div>
-              </div>
-              <div class="cc-box dashed" id="ccout-p3">
-                <div class="bx-title">Pending</div>
-                <div class="bx-sub">P3 · awaiting docs</div>
-              </div>
-              <div class="cc-box dashed" id="ccout-p4">
-                <div class="bx-title">Pending</div>
-                <div class="bx-sub">P4 · awaiting docs</div>
               </div>
               <div class="cc-box" id="ccout-default">
                 <div class="bx-title">Default Values</div>
@@ -1100,14 +1121,6 @@
               <div class="bx-title">3% UI View</div>
               <div class="bx-sub">Components rendered</div>
             </div>
-            <div class="cc-box empty" id="ccui-p3">
-              <div class="bx-title">- Pending -</div>
-              <div class="bx-sub">No UI rendered</div>
-            </div>
-            <div class="cc-box empty" id="ccui-p4">
-              <div class="bx-title">- Pending -</div>
-              <div class="bx-sub">No UI rendered</div>
-            </div>
             <div class="cc-box" id="ccui-default">
               <div class="bx-title">Default UI</div>
               <div class="bx-sub">Standard view</div>
@@ -1117,55 +1130,38 @@
               <div class="bx-sub">Components rendered</div>
             </div>
             <div class="cc-box p5" id="ccui-p5">
-              <div class="bx-title">ABB ATM</div>
+              <div class="bx-title">ABB Mobile</div>
               <div class="bx-sub">0% Travel view</div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- P5 Featured: ABB ATM (preserved from original) -->
+      <!-- P5 Featured: ABB Mobile · HiperSən -->
       <div class="cc-p5-feature" id="ccP5Feature">
         <div class="cc-p5-head">
           <span class="cc-p5-tag">P5 · Featured Output</span>
-          <span class="cc-p5-title">ABB ATM · 0% Commission · Travel view</span>
+          <span class="cc-p5-title">ABB Mobile · 0% Commission · Travel view</span>
         </div>
         <div class="cc-p5-body">
           <div class="cc-p5-notes">
             <div class="cc-p5-note"><span class="ico">✓</span><div><strong>Travel behavior detected</strong> · Customer transacting outside Azerbaijan with active ABB card.</div></div>
             <div class="cc-p5-note"><span class="ico">✓</span><div><strong>0% commission rule fires</strong> · Personalized waiver applied for this trip only.</div></div>
-            <div class="cc-p5-note"><span class="ico">✓</span><div><strong>UI delivered at the ATM</strong> · Greeting, fee block and option chips rendered for Aysel in real time.</div></div>
+            <div class="cc-p5-note"><span class="ico">✓</span><div><strong>UI delivered in ABB Mobile</strong> · HiperSən screen with the 0% commission campaign rendered for Aysel in real time.</div></div>
             <div class="cc-p5-note"><span class="ico">✓</span><div><strong>Logged to commission ledger</strong> · Decision auditable in the Azericard pipeline.</div></div>
           </div>
-          <div class="atm-cabinet">
-            <div class="atm-display">
-              <div class="atm-bar">
-                <span class="atm-logo">ABB ATM</span>
-                <span class="atm-foryou"><span class="d"></span>For Aysel</span>
-              </div>
-              <div class="atm-greet">Salam, <span class="name">Aysel</span></div>
-              <div class="atm-msg">Səfərini gördük - Türkiyə üçün bu çəkilişdə komissiya sənə aid deyil.</div>
-              <div class="atm-fee-block">
-                <div class="label-top">Çəkim komissiyası</div>
-                <div class="num">0%</div>
-                <div class="label-bot">Sənin üçün</div>
-              </div>
-              <div class="atm-options">
-                <div class="opt">100 ₼</div><div class="opt">200 ₼</div><div class="opt">500 ₼</div>
-                <div class="opt">1000 ₼</div><div class="opt active">Digər məbləğ</div><div class="opt">İmtina</div>
-              </div>
-              <div class="atm-foot">
-                <span class="atm-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Istanbul · Atatürk</span>
-                <span>Cross-border · live</span>
+          <div class="p5-phone-wrap">
+            <div class="p5-phone">
+              <div class="p5-screen" id="p5Screen">
+                <!-- ŞƏKİL YERİ: bu qovluğa "hipersen.png" (və ya .jpg) at — avtomatik buraya oturacaq -->
+                <div class="p5s-placeholder">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                  <span>Şəkil yeri</span>
+                  <small>hipersen.png faylını bu qovluğa əlavə et</small>
+                </div>
               </div>
             </div>
-            <div class="atm-keypad">
-              <span>1</span><span>2</span><span>3</span>
-              <span>4</span><span>5</span><span>6</span>
-              <span>7</span><span>8</span><span>9</span>
-              <span class="red">×</span><span>0</span><span class="green">✓</span>
-            </div>
-            <div class="atm-slot">Kart yuvası</div>
+            <span class="p5-phone-cap">ABB Mobile · HiperSən</span>
           </div>
         </div>
       </div>
@@ -3473,18 +3469,16 @@ document.addEventListener('keydown',e=>{
   const PROFILES=[
     { id:"p1",  label:"P1 · 3%",          branch:"ccbl-p1",      arrow:"ccArrow-p1",      outcome:"ccout-3",       ui:"ccui-3",       isPending:false, isP5:false },
     { id:"p2",  label:"P2 · 5%",          branch:"ccbl-p2",      arrow:"ccArrow-p2",      outcome:"ccout-5",       ui:"ccui-5",       isPending:false, isP5:false },
-    { id:"p3",  label:"P3 · Pending",     branch:"ccbl-p3",      arrow:"ccArrow-p3",      outcome:"ccout-p3",      ui:"ccui-p3",      isPending:true,  isP5:false },
-    { id:"p4",  label:"P4 · Pending",     branch:"ccbl-p4",      arrow:"ccArrow-p4",      outcome:"ccout-p4",      ui:"ccui-p4",      isPending:true,  isP5:false },
     { id:"nm",  label:"No match",         branch:"ccbl-nomatch", arrow:"ccArrow-nomatch", outcome:"ccout-default", ui:"ccui-default", isPending:false, isP5:false },
-    { id:"p5",  label:"P5 · ATM 0%",      branch:"ccbl-p5",      arrow:"ccArrow-p5",      outcome:"ccout-p5",      ui:"ccui-p5",      isPending:false, isP5:true  }
+    { id:"p5",  label:"P5 · Mobile 0%",      branch:"ccbl-p5",      arrow:"ccArrow-p5",      outcome:"ccout-p5",      ui:"ccui-p5",      isPending:false, isP5:true  }
   ];
-  const allArrows=['ccArrow-p1','ccArrow-p2','ccArrow-p3','ccArrow-p4','ccArrow-nomatch','ccArrow-p5'];
+  const allArrows=['ccArrow-p1','ccArrow-p2','ccArrow-nomatch','ccArrow-p5'];
   const externalNodes=['ccn-customer','ccn-tech','ccn-profile'];
   const arrows=['cca-1','cca-2'];
   const diamond=document.getElementById('ccDiamond');
-  const allOutcomes=['ccout-3','ccout-p3','ccout-p4','ccout-default','ccout-5','ccout-p5'];
-  const allUIs=['ccui-3','ccui-p3','ccui-p4','ccui-default','ccui-5','ccui-p5'];
-  const allBranches=['ccbl-p1','ccbl-p2','ccbl-p3','ccbl-p4','ccbl-nomatch','ccbl-p5'];
+  const allOutcomes=['ccout-3','ccout-default','ccout-5','ccout-p5'];
+  const allUIs=['ccui-3','ccui-default','ccui-5','ccui-p5'];
+  const allBranches=['ccbl-p1','ccbl-p2','ccbl-nomatch','ccbl-p5'];
   const p5Feature=document.getElementById('ccP5Feature');
   let timers=[];
   function ccClear(){ timers.forEach(t=>clearTimeout(t)); timers=[]; }
@@ -4031,5 +4025,20 @@ document.addEventListener('keydown',e=>{
 })();
 </script>
 
-</body>
+
+<script>
+/* P5 phone: use real HiperSən screenshot when present in folder */
+(function(){
+  const scr=document.getElementById('p5Screen'); if(!scr) return;
+  const candidates=['hipersen.png','hipersen.jpg','hipersen.jpeg','hipersen-p5.png','hipersen-p5.jpg','p5-mobile.png','p5-mobile.jpg'];
+  (function tryNext(i){
+    if(i>=candidates.length) return;
+    const img=new Image();
+    img.onload=()=>{ scr.style.backgroundImage='url("./'+candidates[i]+'")'; scr.classList.add('has-image'); };
+    img.onerror=()=>tryNext(i+1);
+    img.src='./'+candidates[i];
+  })(0);
+})();
+</script>
+\n</body>
 </html>
